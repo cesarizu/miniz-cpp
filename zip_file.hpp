@@ -5092,7 +5092,7 @@ uint32_t crc32buf(const char *buf, std::size_t len)
 
 tm safe_localtime(const time_t &t)
 {
-#ifdef _WIN32
+#ifdef localtime_s
     tm time;
     localtime_s(&time, &t);
     return time;
@@ -5563,6 +5563,7 @@ private:
 
     void start_write()
     {
+        /*
         if(archive_->m_zip_mode == MZ_ZIP_MODE_WRITING) return;
         
         switch(archive_->m_zip_mode)
@@ -5615,10 +5616,12 @@ private:
         {
             throw std::runtime_error("bad zip");
         }
+        */
     }
 
     void append_comment()
     {
+        /*
         if(!comment.empty())
         {
             auto comment_length = std::min(static_cast<uint16_t>(comment.length()), std::numeric_limits<uint16_t>::max());
@@ -5626,6 +5629,7 @@ private:
             buffer_[buffer_.size() - 1] = static_cast<char>(comment_length >> 8);
             std::copy(comment.begin(), comment.end(), std::back_inserter(buffer_));
         }
+         */
     }
 
     void remove_comment()
